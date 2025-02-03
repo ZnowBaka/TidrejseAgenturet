@@ -1,9 +1,9 @@
-package com.example.tidrejseagenturet;
+package com.example.tidrejseagenturet.View;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class TidsrejseAgenturetFX {
     @FXML
     private Label welcomeText;
 
