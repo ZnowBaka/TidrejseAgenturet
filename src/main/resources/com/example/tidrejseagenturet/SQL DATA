@@ -1,0 +1,45 @@
+CREATE DATABASE tra
+USE tra
+
+
+CRATE TABLE customers(
+id primary key auto_increment unique not null,
+name varchar(128) not null,
+email varchar(128) unique not null
+);
+
+CREATE TABLE time_machines(
+id primary key auto_increment unique not null,
+name varchar(128) not null,
+capacity INT not null,
+operational_status BOOLEAN not null,
+booked_status BOOLEAN not null
+);
+
+CREATE TABLE time_periods(
+id primary key auto_increment unique not null,
+name varchar(128) not null,
+description varchar(255)
+);
+
+
+CREATE TABLE guides(
+id primary key auto_increment unique not null,
+name varchar(128) not null,
+specialty varchar(128) not null
+);
+
+CREATE TABLE bookings(
+id primary key auto_increment unique not null,
+customer_id INT not null,
+time_machine_id INT not null,
+time_period_id INT not null,
+guide_id INT not null
+);
+
+
+
+
+
+
+
