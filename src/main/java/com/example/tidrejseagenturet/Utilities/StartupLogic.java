@@ -3,6 +3,7 @@ package com.example.tidrejseagenturet.Utilities;
 import java.io.*;
 
 public class StartupLogic {
+    /*
     public static void createFiles() throws IOException {
         File file1 = new File("username");
         File file2 = new File("password");
@@ -16,5 +17,7 @@ public class StartupLogic {
             System.out.println("Files Already Exists");
         }
     }
+
+     */
 
 }// StartupLogic End
