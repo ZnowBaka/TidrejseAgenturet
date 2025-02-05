@@ -1,25 +1,50 @@
 package com.example.tidrejseagenturet.Model;
 
 public class Reservation {
-    private int id;
-    private int userId;
+    private int reservationId;
+    private int customerId;
+    private int timeMachineId;
+    private int timeMachinePeriodId;
     private int guideId;
-    private TimeMachine timeMachine;
 
-    public int getId() {
-        return id;
+    public Reservation(int reservationId, int customerId, int timeMachineId, int timeMachinePeriodId, int guideId) {
+        this.reservationId = reservationId;
+        this.customerId = customerId;
+        this.timeMachineId = timeMachineId;
+        this.timeMachinePeriodId = timeMachinePeriodId;
+        this.guideId = guideId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getReservationId() {
+        return reservationId;
     }
 
-    public int getUserId() {
-        return userId;
+    public void setReservationId(int reservationId) {
+        this.reservationId = reservationId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public int getTimeMachineId() {
+        return timeMachineId;
+    }
+
+    public void setTimeMachineId(int timeMachineId) {
+        this.timeMachineId = timeMachineId;
+    }
+
+    public int getTimeMachinePeriodId() {
+        return timeMachinePeriodId;
+    }
+
+    public void setTimeMachinePeriodId(int timeMachinePeriodId) {
+        this.timeMachinePeriodId = timeMachinePeriodId;
     }
 
     public int getGuideId() {
@@ -28,20 +53,5 @@ public class Reservation {
 
     public void setGuideId(int guideId) {
         this.guideId = guideId;
-    }
-
-    public TimeMachine getTimeMachine() {
-        return timeMachine;
-    }
-
-    public void setTimeMachine(TimeMachine timeMachine) {
-        this.timeMachine = timeMachine;
-    }
-
-    public Reservation(int id, int userId, int guideId, TimeMachine timeMachine) {
-        this.id = id;
-        this.userId = userId;
-        this.guideId = guideId;
-        this.timeMachine = timeMachine;
     }
 }

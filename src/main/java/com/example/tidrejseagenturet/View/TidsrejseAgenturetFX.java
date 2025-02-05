@@ -1,6 +1,7 @@
 package com.example.tidrejseagenturet.View;
 
 import com.example.tidrejseagenturet.Main;
+import com.example.tidrejseagenturet.Model.DatabaseHandler;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class TidsrejseAgenturetFX {
+    DatabaseHandler databaseHandler = new DatabaseHandler();
     Parent root;
     Stage stage;
     Scene scene;
