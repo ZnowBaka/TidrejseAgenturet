@@ -1,5 +1,6 @@
 package com.example.tidrejseagenturet.View;
 
+import com.example.tidrejseagenturet.Controller.ReservationController;
 import com.example.tidrejseagenturet.Main;
 import com.example.tidrejseagenturet.Model.DatabaseHandler;
 import javafx.application.Application;
@@ -15,6 +16,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class TidsrejseAgenturetFX {
+    ReservationController reservationController = new ReservationController();
+
     Parent root;
     Stage stage;
     Scene scene;
@@ -32,7 +35,7 @@ public class TidsrejseAgenturetFX {
     @FXML
     private TableColumn selectedGuideColumn;
     @FXML
-    private TableColumn selectedSteatColumn;
+    private TableColumn selectedSeatColumn;
     @FXML
     private TableView possibleTableView;
     @FXML
@@ -55,6 +58,11 @@ public class TidsrejseAgenturetFX {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    protected void onReserveBTN(){
+        reservationController.newReservation()
     }
 
 
