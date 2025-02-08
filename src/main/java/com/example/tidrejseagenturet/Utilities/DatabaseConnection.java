@@ -34,8 +34,8 @@ public class DatabaseConnection {
     }
 
 
-
-
+//søren ryge
+    
 
 
 
