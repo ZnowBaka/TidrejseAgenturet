@@ -6,14 +6,6 @@ import java.sql.*;
 
 public class DatabaseHandler {
 
-    //Implementér CRUD-operationer for hver tabel i databasen ved hjælp af JDBC
-    // 1 customers
-    // 2 time_machines
-    // 3 time_periods
-    // 4 guides
-    // 5 bookings
-
-
     //region Customer Queries
     public void createCustomer(Customer customer) throws SQLException {
         String SQL = "INSERT INTO customers(firstName, lastName, email, phoneNumber) VALUES(?,?,?,?)";
@@ -26,8 +18,8 @@ public class DatabaseHandler {
             preparedStatement.setString(3, customer.getEmail());
             preparedStatement.setString(4, customer.getPhone());
 
-            int roswsInserted = preparedStatement.executeUpdate();
-            if (roswsInserted > 0) {
+            int rowsInserted = preparedStatement.executeUpdate();
+            if (rowsInserted > 0) {
                 System.out.println("Customer " + customer.getFirstName() + " " + customer.getLastName() + " has been created successfully");
             }
 
@@ -75,11 +67,11 @@ public class DatabaseHandler {
     }
 
     public void deleteCustomer(Customer customer, int DBIndex) throws SQLException {
-        String sql = ("DELETE FROM customers WHERE id = " + DBIndex);
+        String sql = ("DELETE FROM customers (WHERE id = ? VALUES(?)");
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            preparedStatement.setInt(1, customer.getId());
+            preparedStatement.setInt(1, DBIndex);
 
             int rowsDeleted = preparedStatement.executeUpdate();
             if (rowsDeleted > 0) {
@@ -100,7 +92,7 @@ public class DatabaseHandler {
 
             preparedStatement.setString(1, timeMachine.getName());
             preparedStatement.setString(2, String.valueOf(timeMachine.getCapacity()));
-            preparedStatement.setString(3, String.valueOf(timeMachine.isBookingStatus());
+            preparedStatement.setString(3, String.valueOf(timeMachine.isBookingStatus()));
             preparedStatement.setString(4, String.valueOf(timeMachine.isOperationalStatus()));
 
             int roswsInserted = preparedStatement.executeUpdate();
@@ -140,7 +132,7 @@ public class DatabaseHandler {
 
             preparedStatement.setString(1, timeMachine.getName());
             preparedStatement.setString(2, String.valueOf(timeMachine.getCapacity()));
-            preparedStatement.setString(3, String.valueOf(timeMachine.isBookingStatus());
+            preparedStatement.setString(3, String.valueOf(timeMachine.isBookingStatus()));
             preparedStatement.setString(4, String.valueOf(timeMachine.isOperationalStatus()));
 
             int rowsUpdated = preparedStatement.executeUpdate();
@@ -152,8 +144,20 @@ public class DatabaseHandler {
         }
     }
 
-    public void deleteTimeMachine() {
+    public void deleteTimeMachine(TimeMachine timeMachine, int DBIndex) throws SQLException {
+        String sql = ("DELETE FROM time_machines WHERE id = " + DBIndex);
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            preparedStatement.setInt(1, timeMachine.getId());
+
+            int rowsDeleted = preparedStatement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Time machine " + timeMachine.getName() + " has been deleted successfully");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     //endregion
 
@@ -167,8 +171,8 @@ public class DatabaseHandler {
             preparedStatement.setString(1, timePeriod.getTimeEra());
             preparedStatement.setString(2, timePeriod.getEraDescription());
 
-            int roswsInserted = preparedStatement.executeUpdate();
-            if (roswsInserted > 0) {
+            int rowsInserted = preparedStatement.executeUpdate();
+            if (rowsInserted > 0) {
                 System.out.println("Time period " + timePeriod.getTimeEra() + " has been created successfully");
             }
 
@@ -177,16 +181,55 @@ public class DatabaseHandler {
         }
     }
 
-    public void readTimePeriod() {
+    public TimePeriod readTimePeriod(int DBIndex) throws SQLException {
+        String sql = ("SELECT * FROM time_periods WHERE id = " + DBIndex);
 
+        try (Connection connection = DatabaseConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            int id = resultSet.getInt("id");
+            String timeEra = resultSet.getString("name");
+            String eraDescription = resultSet.getString("description");
+
+            return new TimePeriod(id, timeEra, eraDescription);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void updateTimePeriod() {
+    public void updateTimePeriod(TimePeriod timePeriod, int DBIndex) throws SQLException {
+        String sql = ("UPDATE time_periods SET name = ?, description = ? WHERE itemID = " + DBIndex);
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            preparedStatement.setString(1, timePeriod.getTimeEra());
+            preparedStatement.setString(2, timePeriod.getEraDescription());
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Time period " + timePeriod.getTimeEra() + " has been updated successfully");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void deleteTimePeriod() {
+    public void deleteTimePeriod(TimePeriod timePeriod, int DBIndex) throws SQLException {
+        String sql = ("DELETE FROM time_periods WHERE id = " + DBIndex);
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            preparedStatement.setInt(1, timePeriod.getId());
+
+            int rowsDeleted = preparedStatement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Time period " + timePeriod.getTimeEra() + " has been deleted successfully");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     //endregion
 
@@ -210,16 +253,55 @@ public class DatabaseHandler {
         }
     }
 
-    public void readGuide() {
+    public Guide readGuide(int DBIndex) throws SQLException {
+        String sql = ("SELECT * FROM guides WHERE id = " + DBIndex);
 
+        try (Connection connection = DatabaseConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            int id = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            String specialty = resultSet.getString("specialty");
+
+            return new Guide(id, name, specialty);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void updateGuide() {
+    public void updateGuide(Guide guide, int DBIndex) throws SQLException {
+        String sql = ("UPDATE time_periods SET name = ?, specialty = ? WHERE itemID = " + DBIndex);
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            preparedStatement.setString(1, guide.getName());
+            preparedStatement.setString(2, guide.getSpecialty());
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Guide " + guide.getName() + " has been updated successfully");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void deleteGuide() {
+    public void deleteGuide(Guide guide, int DBIndex) throws SQLException {
+        String sql = ("DELETE FROM time_periods WHERE id = " + DBIndex);
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            preparedStatement.setInt(1, guide.getId());
+
+            int rowsDeleted = preparedStatement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Guide " + guide.getName() + " has been deleted successfully");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     //endregion
 
@@ -235,8 +317,8 @@ public class DatabaseHandler {
             preparedStatement.setString(3, String.valueOf(reservation.getReservationId()));
             preparedStatement.setString(4, String.valueOf(reservation.getGuideId()));
 
-            int roswsInserted = preparedStatement.executeUpdate();
-            if (roswsInserted > 0) {
+            int rowsInserted = preparedStatement.executeUpdate();
+            if (rowsInserted > 0) {
                 System.out.println("Booking for customer ID: " + reservation.getCustomerId() + " has been created successfully");
             }
         } catch (SQLException e) {
@@ -244,18 +326,60 @@ public class DatabaseHandler {
         }
     }
 
-    public void readBooking() {
+    public Reservation readBooking(int DBIndex) throws SQLException {
+        String sql = ("SELECT * FROM bookings WHERE id = " + DBIndex);
 
+        try (Connection connection = DatabaseConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            int id = resultSet.getInt("id");
+            int customerId = resultSet.getInt("customer_id");
+            int timeMachineId = resultSet.getInt("time_machine_id");
+            int timePeriodId = resultSet.getInt("time_period_id");
+            int guideId = resultSet.getInt("guide_id");
+
+            return new Reservation(id, customerId, timeMachineId, timePeriodId, guideId);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void updateBooking() {
+    public void updateBooking(Reservation reservation, int DBIndex) throws SQLException {
+        String sql = ("UPDATE bookings SET customer_id = ?, time_machine_id = ?, time_period_id = ?, guide_id = ? WHERE itemID = " + DBIndex);
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            preparedStatement.setString(1, String.valueOf(reservation.getCustomerId()));
+            preparedStatement.setString(2, String.valueOf(reservation.getTimeMachineId()));
+            preparedStatement.setString(3, String.valueOf(reservation.getReservationId()));
+            preparedStatement.setString(4, String.valueOf(reservation.getGuideId()));
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Booking ID: " + reservation.getReservationId() + " has been updated successfully");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void deleteBooking() {
+    public void deleteBooking(Reservation reservation, int DBIndex) throws SQLException {
+        String sql = ("DELETE FROM time_periods WHERE id = " + DBIndex);
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            preparedStatement.setInt(1, reservation.getReservationId());
+
+            int rowsDeleted = preparedStatement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Booking ID:  " + reservation.getReservationId() + " has been deleted successfully");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     //endregion
-
 
 }// DatabaseHandler End
