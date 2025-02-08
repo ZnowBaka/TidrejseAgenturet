@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class TidsrejseAgenturetFX {
-    DatabaseHandler databaseHandler = new DatabaseHandler();
     Parent root;
     Stage stage;
     Scene scene;
