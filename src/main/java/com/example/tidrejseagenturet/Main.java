@@ -7,22 +7,33 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.Objects;
 
 public class Main extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("WelcomeScreen.fxml"));
+    public void start(Stage primaryStage) throws Exception {
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("WelcomeScene.fxml"));
             Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("TidrejseAgenturet");
+            primaryStage.setWidth(640);
+            primaryStage.setHeight(460);
+            primaryStage.show();
 
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }// start End
+
+    /* // Basic startup works overall, still cant get the switch to work
+    public void start(Stage primaryStage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Scene01.fxml"));
+        Scene startScene = new Scene(fxmlLoader.load(), 600, 460);
+        primaryStage.setTitle("Start Screen!");
+        primaryStage.setScene(startScene);
+        primaryStage.show();
+    }
+    */
 
     public static void main(String[] args) {
         /*
@@ -31,7 +42,9 @@ public class Main extends Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-*/
-        launch(args);
-    }
-}
+        */
+
+        launch();
+
+    }// main End
+}// MAIN End
