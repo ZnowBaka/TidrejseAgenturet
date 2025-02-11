@@ -11,8 +11,8 @@ public class DatabaseConnection {
     private static String USER = "";
     private static String PASSWORD = "";
 
-    public static Connection getConnection() throws SQLException{
-        try{
+    public static Connection getConnection() throws SQLException {
+        try {
             getLogin();
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException | FileNotFoundException e) {
@@ -32,11 +32,6 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
     }
-
-
-//søren ryge
-    
-
 
 
 }// DatabaseConnection End

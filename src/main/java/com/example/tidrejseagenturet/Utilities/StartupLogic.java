@@ -1,9 +1,12 @@
 package com.example.tidrejseagenturet.Utilities;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.io.*;
 
 public class StartupLogic {
-    /*
     public static void createFiles() throws IOException {
         File file1 = new File("username");
         File file2 = new File("password");
@@ -18,6 +21,6 @@ public class StartupLogic {
         }
     }
 
-     */
+
 
 }// StartupLogic End
