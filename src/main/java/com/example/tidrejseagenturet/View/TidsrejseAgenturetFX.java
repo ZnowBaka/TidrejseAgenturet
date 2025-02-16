@@ -1,4 +1,7 @@
+
 package com.example.tidrejseagenturet.View;
+/*
+
 
 
 import javafx.event.ActionEvent;
@@ -98,3 +101,5 @@ public class TidsrejseAgenturetFX {
 
 
 }
+
+ */

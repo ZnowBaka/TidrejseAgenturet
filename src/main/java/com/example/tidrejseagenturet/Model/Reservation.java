@@ -14,7 +14,12 @@ public class Reservation {
         this.timeMachinePeriodId = timeMachinePeriodId;
         this.guideId = guideId;
     }
-
+    public Reservation(int customerId, int timeMachineId, int timeMachinePeriodId, int guideId){
+        this.customerId = customerId;
+        this.timeMachineId = timeMachineId;
+        this.timeMachinePeriodId = timeMachinePeriodId;
+        this.guideId = guideId;
+    }
     public int getReservationId() {
         return reservationId;
     }
